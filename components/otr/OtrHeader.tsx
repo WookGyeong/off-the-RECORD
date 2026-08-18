@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 interface OtrHeaderProps {
   onSearchClick: () => void;
   onNotificationClick: () => void;
@@ -16,6 +18,16 @@ export default function OtrHeader({ onSearchClick, onNotificationClick }: OtrHea
         <span className="text-[10px] tracking-wide text-ink-faint">Off The Record</span>
       </div>
       <div className="flex gap-1.5">
+        <Link
+          href="/add-place"
+          className="flex h-[34px] items-center gap-1 rounded-full border border-line bg-card px-3 text-[12px] font-bold text-ink-soft transition hover:-translate-y-px hover:text-ink"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-3.5 w-3.5">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          장소 추가
+        </Link>
         <button
           type="button"
           aria-label="검색"

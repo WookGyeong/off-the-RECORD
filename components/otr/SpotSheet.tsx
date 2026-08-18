@@ -48,7 +48,7 @@ export default function SpotSheet({ spot, open, onClose, onViewCourse }: SpotShe
   if (!spot) return null;
   const meta = CATEGORY_META[spot.category];
   const remaining = Math.max(0, spot.audioDuration - elapsed);
-  const progress = Math.min(100, (elapsed / spot.audioDuration) * 100);
+  const progress = spot.audioDuration > 0 ? Math.min(100, (elapsed / spot.audioDuration) * 100) : 0;
 
   return (
     <div

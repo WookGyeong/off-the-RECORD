@@ -72,3 +72,54 @@ export const spots: Spot[] = [
     audioDuration: 50,
   },
 ];
+
+const USER_SPOTS_STORAGE_KEY = 'otr:userSpots';
+const KNOWN_CATEGORIES: SpotCategory[] = ['dongne', 'golmok', 'culture', 'cafe'];
+
+function isValidSpot(value: unknown): value is Spot {
+  if (!value || typeof value !== 'object') return false;
+  const v = value as Record<string, unknown>;
+  return (
+    typeof v.id === 'number' &&
+    typeof v.name === 'string' &&
+    typeof v.description === 'string' &&
+    typeof v.lat === 'number' &&
+    typeof v.lng === 'number' &&
+    typeof v.audioDuration === 'number' &&
+    KNOWN_CATEGORIES.includes(v.category as SpotCategory)
+  );
+}
+
+function loadUserSpots(): Spot[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(USER_SPOTS_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(isValidSpot) : [];
+  } catch {
+    return [];
+  }
+}
+
+// 사용자가 직접 추가한 장소만 따로 모아둬요. 새로고침 후 복원할 때도 이 목록만 저장해요.
+const userSpots: Spot[] = loadUserSpots();
+spots.push(...userSpots);
+
+function persistUserSpots() {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(USER_SPOTS_STORAGE_KEY, JSON.stringify(userSpots));
+  } catch {
+    // 프라이빗 모드 등으로 localStorage를 못 쓰면 저장은 그냥 건너뛰어요.
+  }
+}
+
+export function addSpot(input: { name: string; category: SpotCategory; lat: number; lng: number; description: string }): Spot {
+  const nextId = spots.reduce((max, s) => Math.max(max, s.id), 0) + 1;
+  const spot: Spot = { ...input, id: nextId, audioDuration: 0 };
+  spots.push(spot);
+  userSpots.push(spot);
+  persistUserSpots();
+  return spot;
+}
