@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f1ecdd;
+  --card: #fbf8ef;
+  --card-raised: #ffffff;
+  --ink: #23282b;
+  --ink-soft: #5b6360;
+  --ink-faint: #8b8f86;
+  --moss: #5e6e52;
+  --moss-soft: #5e6e5220;
+  --rust: #b2601f;
+  --rust-soft: #b2601f1f;
+  --plum: #6b4c5e;
+  --plum-soft: #6b4c5e1f;
+  --gold: #b4841f;
+  --gold-soft: #b4841f1f;
+  --line: #dcd4be;
+  --line-strong: #c9bfa0;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1b1f21;
+    --card: #242a2c;
+    --card-raised: #2b3234;
+    --ink: #eee8d9;
+    --ink-soft: #aeb0a4;
+    --ink-faint: #767c74;
+    --moss: #8aa07c;
+    --moss-soft: #8aa07c26;
+    --rust: #e08b49;
+    --rust-soft: #e08b4926;
+    --plum: #b389a0;
+    --plum-soft: #b389a026;
+    --gold: #d7a83f;
+    --gold-soft: #d7a83f26;
+    --line: #363c3b;
+    --line-strong: #454c4a;
+    color-scheme: dark;
+  }
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+.animate-ping-slow {
+  animation: ping-slow 2.4s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-ping-slow {
+    animation: none;
+    opacity: 0.2;
+  }
+}
