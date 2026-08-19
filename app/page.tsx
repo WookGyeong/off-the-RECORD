@@ -68,7 +68,6 @@ export default function ExploreHome() {
         />
 
         <div className="flex-shrink-0 px-5 pb-3.5 pt-2.5">
-          <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-moss">주변 탐색 · 약전골목 인근</p>
           <h1 className="text-balance text-[19px] font-bold leading-relaxed text-ink">
             지금 걷는 골목에 <span className="text-rust">숨은 이야기</span>가 있어요
           </h1>

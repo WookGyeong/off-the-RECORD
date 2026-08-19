@@ -8,8 +8,17 @@ interface CategoryFilterProps {
 }
 
 export default function CategoryFilter({ active, onChange }: CategoryFilterProps) {
+  function handleWheel(e: React.WheelEvent<HTMLDivElement>) {
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    e.currentTarget.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }
+
   return (
-    <div className="no-scrollbar flex flex-shrink-0 gap-2 overflow-x-auto px-5 pb-4 pt-1">
+    <div
+      className="hscroll flex flex-shrink-0 gap-2 px-5 pb-4 pt-1"
+      onWheel={handleWheel}
+    >
       {CATEGORY_ORDER.map((key) => {
         const meta = CATEGORY_META[key];
         const isActive = key === active;

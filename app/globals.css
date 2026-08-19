@@ -56,6 +56,30 @@ body {
   scrollbar-width: none;
 }
 
+.hscroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.hscroll::-webkit-scrollbar {
+  height: 6px;
+}
+.hscroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hscroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+.hscroll:hover,
+.hscroll:focus-within {
+  scrollbar-color: var(--line-strong) transparent;
+}
+.hscroll:hover::-webkit-scrollbar-thumb,
+.hscroll:focus-within::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+}
+
 @keyframes ping-slow {
   0% {
     transform: scale(1);

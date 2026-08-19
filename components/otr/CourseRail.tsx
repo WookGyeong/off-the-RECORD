@@ -8,13 +8,19 @@ interface CourseRailProps {
 }
 
 export default function CourseRail({ courses, onSelectCourse }: CourseRailProps) {
+  function handleWheel(e: React.WheelEvent<HTMLDivElement>) {
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    e.currentTarget.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }
+
   return (
     <div className="flex-shrink-0 pb-1.5 pt-4">
       <div className="flex items-baseline justify-between px-5 pb-2.5">
         <h2 className="text-[15px] font-bold text-ink">지금 걷기 좋은 코스</h2>
         <span className="text-[11.5px] text-ink-faint">{courses.length}개 코스</span>
       </div>
-      <div className="no-scrollbar flex gap-3 overflow-x-auto px-5 pb-1 pt-0.5">
+      <div className="hscroll flex gap-3 px-5 pb-1 pt-0.5" onWheel={handleWheel}>
         {courses.map((course) => (
           <button
             key={course.id}
