@@ -8,6 +8,7 @@ import CourseRail from '@/components/otr/CourseRail';
 import BottomNav from '@/components/otr/BottomNav';
 import SpotSheet from '@/components/otr/SpotSheet';
 import CourseSheet from '@/components/otr/CourseSheet';
+import SearchSheet from '@/components/otr/SearchSheet';
 import Toast from '@/components/otr/Toast';
 import { spots } from '@/data/otr/spots';
 import { courses } from '@/data/otr/courses';
@@ -17,6 +18,7 @@ export default function ExploreHome() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>('all');
   const [selectedSpotId, setSelectedSpotId] = useState<number | null>(null);
   const [openCourseId, setOpenCourseId] = useState<number | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastVisible, setToastVisible] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -26,7 +28,7 @@ export default function ExploreHome() {
   );
   const selectedSpot = spots.find((s) => s.id === selectedSpotId) ?? null;
   const openCourse = courses.find((c) => c.id === openCourseId) ?? null;
-  const sheetOpen = selectedSpotId !== null || openCourseId !== null;
+  const sheetOpen = selectedSpotId !== null || openCourseId !== null || searchOpen;
 
   function showToast(message: string) {
     setToastMessage(message);
@@ -38,6 +40,7 @@ export default function ExploreHome() {
   function closeSheets() {
     setSelectedSpotId(null);
     setOpenCourseId(null);
+    setSearchOpen(false);
   }
 
   function handleSelectSpot(id: number) {
@@ -63,7 +66,7 @@ export default function ExploreHome() {
     <div className="flex min-h-screen justify-center bg-[radial-gradient(120%_140%_at_50%_0%,var(--card),var(--paper))] px-0 py-0 sm:px-4 sm:py-8">
       <div className="relative flex w-full max-w-[430px] flex-col bg-paper sm:min-h-[820px] sm:rounded-[32px] sm:border sm:border-line sm:shadow-2xl">
         <OtrHeader
-          onSearchClick={() => showToast('검색은 준비 중이에요')}
+          onSearchClick={() => setSearchOpen(true)}
           onNotificationClick={() => showToast('새로운 알림이 없어요')}
         />
 
@@ -109,6 +112,8 @@ export default function ExploreHome() {
           open={openCourseId !== null}
           onStartWalk={() => showToast('실제 걷기 모드는 다음 업데이트에서 만나요')}
         />
+
+        <SearchSheet open={searchOpen} spots={spots} onClose={() => setSearchOpen(false)} />
 
         <Toast message={toastMessage} visible={toastVisible} />
       </div>
