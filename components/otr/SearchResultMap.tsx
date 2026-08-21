@@ -24,9 +24,19 @@ export default function SearchResultMap({ spot }: SearchResultMapProps) {
 
       const meta = CATEGORY_META[spot.category];
       const el = document.createElement('div');
+      el.style.width = '30px';
+      el.style.height = '38px';
       el.innerHTML = `
-        <div style="width:26px;height:26px;transform:rotate(45deg);border-radius:50% 50% 50% 4px;border:2px solid var(--card);box-shadow:0 3px 8px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;background:${meta.color}">
-          <div style="width:7px;height:7px;border-radius:9999px;background:var(--card);transform:rotate(-45deg)"></div>
+        <div style="width:30px;height:38px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.22))">
+          <svg width="30" height="38" viewBox="0 0 30 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15 37C15 37 28 22.6 28 14C28 6.8 22.2 1 15 1C7.8 1 2 6.8 2 14C2 22.6 15 37 15 37Z"
+              fill="${meta.color}"
+              stroke="var(--card)"
+              stroke-width="2"
+            />
+            <circle cx="15" cy="14" r="5" fill="var(--card)" />
+          </svg>
         </div>`;
 
       const overlay = new window.kakao.maps.CustomOverlay({

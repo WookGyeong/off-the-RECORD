@@ -64,7 +64,7 @@ export default function ExploreHome() {
 
   return (
     <div className="flex min-h-screen justify-center bg-[radial-gradient(120%_140%_at_50%_0%,var(--card),var(--paper))] px-0 py-0 sm:px-4 sm:py-8">
-      <div className="relative flex w-full max-w-[430px] flex-col bg-paper sm:min-h-[820px] sm:rounded-[32px] sm:border sm:border-line sm:shadow-2xl">
+      <div className="relative flex w-full max-w-[430px] flex-col overflow-hidden bg-paper sm:min-h-[820px] sm:rounded-[32px] sm:border sm:border-line sm:shadow-2xl">
         <OtrHeader
           onSearchClick={() => setSearchOpen(true)}
           onNotificationClick={() => showToast('새로운 알림이 없어요')}

@@ -12,8 +12,8 @@ interface LocalMapProps {
   onSelectSpot: (id: number) => void;
 }
 
-/** temporary center: Daegu Yakjeon-golmok (약전골목) */
-const MAP_CENTER = { lat: 35.8703, lng: 128.5952 };
+/** center: Daegu Jung-gu 근대골목 (청라언덕 ~ 계산성당 일대) */
+const MAP_CENTER = { lat: 35.8679, lng: 128.5885 };
 
 export default function LocalMap({ spots, visibleSpotIds, selectedSpotId, onSelectSpot }: LocalMapProps) {
   const mapElRef = useRef<HTMLDivElement | null>(null);
@@ -34,7 +34,7 @@ export default function LocalMap({ spots, visibleSpotIds, selectedSpotId, onSele
     window.kakao.maps.load(() => {
       const map = new window.kakao.maps.Map(mapElRef.current, {
         center: new window.kakao.maps.LatLng(MAP_CENTER.lat, MAP_CENTER.lng),
-        level: 4,
+        level: 5,
       });
       mapRef.current = map;
 
@@ -42,9 +42,19 @@ export default function LocalMap({ spots, visibleSpotIds, selectedSpotId, onSele
         const meta = CATEGORY_META[spot.category];
         const el = document.createElement('div');
         el.style.cursor = 'pointer';
+        el.style.width = '30px';
+        el.style.height = '38px';
         el.innerHTML = `
-          <div data-pin style="width:26px;height:26px;transform:rotate(45deg);border-radius:50% 50% 50% 4px;border:2px solid var(--card);box-shadow:0 3px 8px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;background:${meta.color}">
-            <div style="width:7px;height:7px;border-radius:9999px;background:var(--card);transform:rotate(-45deg)"></div>
+          <div data-pin style="width:30px;height:38px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.22))">
+            <svg width="30" height="38" viewBox="0 0 30 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15 37C15 37 28 22.6 28 14C28 6.8 22.2 1 15 1C7.8 1 2 6.8 2 14C2 22.6 15 37 15 37Z"
+                fill="${meta.color}"
+                stroke="var(--card)"
+                stroke-width="2"
+              />
+              <circle cx="15" cy="14" r="5" fill="var(--card)" />
+            </svg>
           </div>`;
         el.addEventListener('click', () => onSelectSpotRef.current(spot.id));
 
@@ -70,8 +80,10 @@ export default function LocalMap({ spots, visibleSpotIds, selectedSpotId, onSele
       const spot = spots.find((s) => s.id === id);
       if (!spot) return;
       const meta = CATEGORY_META[spot.category];
-      pin.style.boxShadow =
-        selectedSpotId === id ? `0 0 0 4px ${meta.soft}, 0 3px 8px rgba(0,0,0,.22)` : '0 3px 8px rgba(0,0,0,.22)';
+      pin.style.filter =
+        selectedSpotId === id
+          ? `drop-shadow(0 0 5px ${meta.soft}) drop-shadow(0 3px 6px rgba(0,0,0,.22))`
+          : 'drop-shadow(0 3px 6px rgba(0,0,0,.22))';
     });
   }, [visibleSpotIds, selectedSpotId, spots]);
 

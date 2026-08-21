@@ -10,7 +10,7 @@ import CategoryDial from '@/components/otr/CategoryDial';
 import { addSpot } from '@/data/otr/spots';
 import type { SpotCategory } from '@/data/otr/spots';
 
-const DEFAULT_CENTER = { lat: 35.8703, lng: 128.5952 };
+const DEFAULT_CENTER = { lat: 35.8679, lng: 128.5885 };
 
 export default function AddPlacePage() {
   const router = useRouter();
@@ -45,7 +45,7 @@ export default function AddPlacePage() {
 
   return (
     <div className="flex min-h-screen justify-center bg-[radial-gradient(120%_140%_at_50%_0%,var(--card),var(--paper))] px-0 py-0 sm:px-4 sm:py-8">
-      <div className="relative flex w-full max-w-[430px] flex-col bg-paper sm:min-h-[820px] sm:rounded-[32px] sm:border sm:border-line sm:shadow-2xl">
+      <div className="relative flex w-full max-w-[430px] flex-col overflow-hidden bg-paper sm:min-h-[820px] sm:rounded-[32px] sm:border sm:border-line sm:shadow-2xl">
         <Script
           src={`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&autoload=false&libraries=services`}
           strategy="afterInteractive"

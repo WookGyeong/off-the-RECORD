@@ -2,6 +2,7 @@
 
 import type { Course } from '@/data/otr/courses';
 import type { Spot } from '@/data/otr/spots';
+import CourseRouteMap from './CourseRouteMap';
 
 interface CourseSheetProps {
   course: Course | null;
@@ -36,6 +37,11 @@ export default function CourseSheet({ course, spots, open, onStartWalk }: Course
         <div className="text-[11px] text-ink-faint">
           <b className="block text-[15px] font-bold text-ink">{course.durationMin}분</b>예상 시간
         </div>
+      </div>
+
+      <div className="my-3.5">
+        <CourseRouteMap spots={orderedSpots} lineColor={course.hue[1]} />
+        <p className="mt-1.5 text-center text-[11px] text-ink-faint">점선은 방문 순서예요 · 실제 도보 경로는 준비 중이에요</p>
       </div>
 
       <ol className="mb-[18px] mt-1 list-none p-0">
